@@ -7,8 +7,10 @@ export class BirdFactory {
         return new European(_type);
       case 'AFRICAN':
         return new African(_type);
+      case 'NORWEGIAN_BLUE':
+        return new NorwegianBlue(_type, _numberOfCoconuts, _isNailed);
       default:
-        return new Bird(_type, _numberOfCoconuts, _isNailed, _voltage);
+        throw new Error("Invalid Bird Type");
     }
 
   }
@@ -24,6 +26,18 @@ export class Bird {
     private _voltage: number = 2
   ) {}
 
+  get coconuts() {
+    return this._numberOfCoconuts;
+  }
+
+  get isNailed() {
+    return this._isNailed;
+  }
+
+  get voltage() {
+    return this._voltage
+  }
+
   getBaseSpeed(voltage?: number): number {
     return voltage ? voltage * 2 : 21;
   }
@@ -36,34 +50,11 @@ export class Bird {
     return this._type;
   }
 
-  getSpeed(): number {
-    switch (this._type) {
-      case 'AFRICAN':
-        return this.getBaseSpeed() - this.getLoadFactor() * this._numberOfCoconuts;
-      case 'NORWEGIAN_BLUE':
-        return (this._isNailed) ? 0 : this.getBaseSpeed(this._voltage);
-    }
+  getSpeed() {}
 
-    throw new Error("Invalid Bird Type");
-  }
+  getWeight() {}
 
-  getWeight(): number {
-    switch (this._type) {
-      case 'NORWEGIAN_BLUE':
-        return 10;
-    }
-
-    throw new Error("Invalid Bird Type");
-  }
-
-  getHeight(): number {
-    switch (this._type) {
-      case 'NORWEGIAN_BLUE':
-        return 10;
-    }
-
-    throw new Error("Invalid Bird Type");
-  }
+  getHeight() {}
 }
 
 class European extends Bird {
@@ -88,6 +79,20 @@ class African extends Bird {
     return 3;
   }
   getSpeed() {
-    return this.getBaseSpeed() - this.getLoadFactor() * 3;
+    return this.getBaseSpeed() - this.getLoadFactor() * this.coconuts;
+  }
+}
+
+class NorwegianBlue extends Bird {
+  getHeight() {
+    return 10;
+  }
+
+  getWeight() {
+    return 10;
+  }
+
+  getSpeed() {
+    return (this.isNailed) ? 0 : this.getBaseSpeed(this.voltage);
   }
 }
