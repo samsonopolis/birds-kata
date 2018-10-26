@@ -9,10 +9,9 @@ export class BirdFactory {
         return new African(_type);
       case 'NORWEGIAN_BLUE':
         return new NorwegianBlue(_type, _numberOfCoconuts, _isNailed);
-      default:
-        throw new Error("Invalid Bird Type");
     }
-
+    
+    throw new Error("Invalid Bird Type");
   }
 }
 
