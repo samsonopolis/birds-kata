@@ -5,6 +5,8 @@ export class BirdFactory {
     switch(_type) {
       case 'EUROPEAN': 
         return new European(_type);
+      case 'AFRICAN':
+        return new African(_type);
       default:
         return new Bird(_type, _numberOfCoconuts, _isNailed, _voltage);
     }
@@ -47,8 +49,6 @@ export class Bird {
 
   getWeight(): number {
     switch (this._type) {
-      case 'AFRICAN':
-        return 3;
       case 'NORWEGIAN_BLUE':
         return 10;
     }
@@ -58,8 +58,6 @@ export class Bird {
 
   getHeight(): number {
     switch (this._type) {
-      case 'AFRICAN':
-        return 5;
       case 'NORWEGIAN_BLUE':
         return 10;
     }
@@ -78,5 +76,18 @@ class European extends Bird {
   }
   getSpeed() {
     return this.getBaseSpeed();
+  }
+}
+
+class African extends Bird {
+  getHeight(): number {
+    return 5;
+  }
+
+  getWeight(): number {
+    return 3;
+  }
+  getSpeed() {
+    return this.getBaseSpeed() - this.getLoadFactor() * 3;
   }
 }
