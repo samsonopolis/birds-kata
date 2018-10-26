@@ -4,22 +4,19 @@ export class BirdFactory {
   static build(_type, _numberOfCoconuts?, _isNailed?, _voltage?) {
     switch(_type) {
       case 'EUROPEAN': 
-        return new European(_type);
+        return new European();
       case 'AFRICAN':
-        return new African(_type);
+        return new African();
       case 'NORWEGIAN_BLUE':
-        return new NorwegianBlue(_type, _numberOfCoconuts, _isNailed);
+        return new NorwegianBlue(_numberOfCoconuts, _isNailed);
     }
-    
+
     throw new Error("Invalid Bird Type");
   }
 }
 
-type BIRD_TYPE = 'EUROPEAN' | 'AFRICAN' | 'NORWEGIAN_BLUE';
-
 export class Bird {
   constructor(
-    private _type: BIRD_TYPE,
     private _numberOfCoconuts: number = 3,
     private _isNailed: boolean = false,
     private _voltage: number = 2
@@ -45,11 +42,9 @@ export class Bird {
     return 2;
   }
 
-  getType() {
-    return this._type;
+  getSpeed() {
+    return this.getBaseSpeed();
   }
-
-  getSpeed() {}
 
   getWeight() {}
 
@@ -63,9 +58,6 @@ class European extends Bird {
 
   getWeight(): number {
     return 3;
-  }
-  getSpeed() {
-    return this.getBaseSpeed();
   }
 }
 
