@@ -1,5 +1,16 @@
 // https://refactoring.guru/replace-conditional-with-polymorphism
 
+export class BirdFactory {
+  static build(_type, _numberOfCoconuts?, _isNailed?, _voltage?) {
+    switch(_type) {
+      default:
+        return new Bird(_type, _numberOfCoconuts, _isNailed, _voltage);
+    }
+
+  }
+}
+
+
 type BIRD_TYPE = 'EUROPEAN' | 'AFRICAN' | 'NORWEGIAN_BLUE';
 
 export class Bird {
