@@ -1,29 +1,38 @@
 // https://refactoring.guru/replace-conditional-with-polymorphism
 
 export class BirdFactory {
-    static build(_type, _numberOfCoconuts?, _isNailed?) {
+    static build(_type, _numberOfCoconuts?, _isNailed?, _voltage?) {
         switch (_type) {
             case "EUROPEAN":
-                return new European(_type);
+                return new European(_numberOfCoconuts, _isNailed, _voltage);
             case "AFRICAN":
-                return new African(_type);
+                return new African(_numberOfCoconuts, _isNailed, _voltage);
             case "NORWEGIAN_BLUE":
-                return new NorwegianBlue(_type);
+                return new NorwegianBlue(_numberOfCoconuts, _isNailed);
             default:
-                return new Bird(_type);
+                throw new Error('KAKAWWWW');
         }
     }
 }
 
-type BIRD_TYPE = 'EUROPEAN' | 'AFRICAN' | 'NORWEGIAN_BLUE';
-
 export class Bird {
     constructor(
-        private _type: BIRD_TYPE,
         private _numberOfCoconuts: number = 3,
         private _isNailed: boolean = false,
         private _voltage: number = 2
     ) { }
+
+    get numberOfCoconuts() {
+        return this._numberOfCoconuts;
+    }
+
+    get isNailed() {
+        return this._isNailed;
+    }
+
+    get voltage() {
+        return this._voltage;
+    }
 
     getBaseSpeed(voltage?: number): number {
         return voltage ? voltage * 2 : 21;
@@ -33,47 +42,20 @@ export class Bird {
         return 2;
     }
 
-    getType() {
-        return this._type;
-    }
+    // getType() {
+    //     return this.type;
+    // }
 
     getSpeed(): number {
-        switch (this._type) {
-            case 'EUROPEAN':
-                return this.getBaseSpeed();
-            case 'AFRICAN':
-                return this.getBaseSpeed() - this.getLoadFactor() * this._numberOfCoconuts;
-            case 'NORWEGIAN_BLUE':
-                return (this._isNailed) ? 0 : this.getBaseSpeed(this._voltage);
-        }
-
-        throw new Error("Invalid Bird Type");
+        return this.getBaseSpeed();
     }
 
     getWeight(): number {
-        switch (this._type) {
-            case 'EUROPEAN':
-                return 3;
-            case 'AFRICAN':
-                return 3;
-            case 'NORWEGIAN_BLUE':
-                return 10;
-        }
-
-        throw new Error("Invalid Bird Type");
+        return 3;
     }
 
     getHeight(): number {
-        switch (this._type) {
-            case 'EUROPEAN':
-                return 10;
-            case 'AFRICAN':
-                return 5;
-            case 'NORWEGIAN_BLUE':
-                return 10;
-        }
-
-        throw new Error("Invalid Bird Type");
+        return 10;
     }
 }
 
@@ -82,9 +64,19 @@ class European extends Bird {
 }
 
 class African extends Bird {
-
+    getSpeed(): number {
+        return this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts;
+    }
+    getHeight(): number {
+        return 5;
+    }
 }
 
 class NorwegianBlue extends Bird {
-
+    getSpeed(): number {
+        return (this.isNailed) ? 0 : this.getBaseSpeed(this.voltage);
+    }
+    getWeight(): number {
+        return 10;
+    }
 }
