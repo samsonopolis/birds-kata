@@ -6,7 +6,6 @@ describe('Bird', () => {
 
     describe('bird is EUROPEAN', () => {
         beforeEach(() => {
-            // birdy = new Bird('EUROPEAN');
             bird = BirdFactory.build('EUROPEAN');
         });
 
@@ -31,7 +30,6 @@ describe('Bird', () => {
 
     describe('bird is AFRICAN', () => {
         beforeEach(() => {
-            // birdy = new Bird('AFRICAN');
             bird = BirdFactory.build('AFRICAN');
         });
 
@@ -57,7 +55,6 @@ describe('Bird', () => {
     describe('bird is NORWEGIAN BLUE', () => {
         describe('bird is nailed - not sure what this means', () => {
             beforeEach(() => {
-                //birdy = new Bird('NORWEGIAN_BLUE', 3, true);
                 bird = BirdFactory.build('NORWEGIAN_BLUE', 3, true);
             });
 
@@ -82,7 +79,6 @@ describe('Bird', () => {
 
         describe('bird is not nailed - not sure what this means', () => {
             beforeEach(() => {
-                //birdy = new Bird('NORWEGIAN_BLUE', 3, false);
                 bird = BirdFactory.build('NORWEGIAN_BLUE', 3, false);
             });
 

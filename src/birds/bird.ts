@@ -42,10 +42,6 @@ export class Bird {
         return 2;
     }
 
-    // getType() {
-    //     return this.type;
-    // }
-
     getSpeed(): number {
         return this.getBaseSpeed();
     }
