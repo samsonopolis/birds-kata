@@ -8,7 +8,7 @@ export class Bird {
     private _numberOfCoconuts: number = 3,
     private _isNailed: boolean = false,
     private _voltage: number = 2
-  ) {}
+  ) { }
 
   getBaseSpeed(voltage?: number): number {
     return voltage ? voltage * 2 : 21;
@@ -22,42 +22,73 @@ export class Bird {
     return this._type;
   }
 
-  getSpeed(): number {
-    switch (this._type) {
+  get isNailed() {
+    return this._isNailed
+  }
+
+  get numberOfCoconuts() {
+    return this._numberOfCoconuts;
+  }
+
+  get voltage() {
+    return this._voltage;
+  }
+}
+
+export class BirdFactory {
+  static build(_type, _numberOfCoconuts?, _isNailed?, _voltage?) {
+    switch (_type) {
       case 'EUROPEAN':
-        return this.getBaseSpeed();
+        return new EuroBird(_type, _numberOfCoconuts, _isNailed, _voltage);
       case 'AFRICAN':
-        return this.getBaseSpeed() - this.getLoadFactor() * this._numberOfCoconuts;
+        return new AfricanBird(_type, _numberOfCoconuts, _isNailed, _voltage);
       case 'NORWEGIAN_BLUE':
-        return (this._isNailed) ? 0 : this.getBaseSpeed(this._voltage);
+        return new NorwegianBird(_type, _numberOfCoconuts, _isNailed, _voltage);
     }
 
     throw new Error("Invalid Bird Type");
+  }
+
+}
+
+class EuroBird extends Bird {
+  getSpeed(): number {
+    return this.getBaseSpeed();
   }
 
   getWeight(): number {
-    switch (this._type) {
-      case 'EUROPEAN':
-        return 3;
-      case 'AFRICAN':
-        return 3;
-      case 'NORWEGIAN_BLUE':
-        return 10;
-    }
-
-    throw new Error("Invalid Bird Type");
+    return 3;
   }
 
   getHeight(): number {
-    switch (this._type) {
-      case 'EUROPEAN':
-        return 10;
-      case 'AFRICAN':
-        return 5;
-      case 'NORWEGIAN_BLUE':
-        return 10;
-    }
+    return 10;
+  }
+}
 
-    throw new Error("Invalid Bird Type");
+class AfricanBird extends Bird {
+  getSpeed(): number {
+    return this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts;
+  }
+
+  getWeight(): number {
+    return 3;
+  }
+
+  getHeight(): number {
+    return 5;
+  }
+}
+
+class NorwegianBird extends Bird {
+  getSpeed(): number {
+    return (this.isNailed) ? 0 : this.getBaseSpeed(this.voltage);
+  }
+
+  getWeight(): number {
+    return 10;
+  }
+
+  getHeight(): number {
+    return 10;
   }
 }

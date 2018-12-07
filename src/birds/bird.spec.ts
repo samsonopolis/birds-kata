@@ -1,11 +1,11 @@
-import { Bird } from './bird';
+import { BirdFactory, Bird } from './bird';
 
 fdescribe('Bird', () => {
   let bird;
 
   describe('bird is EUROPEAN', () => {
     beforeEach(() => {
-      bird = new Bird('EUROPEAN');
+      bird = BirdFactory.build('EUROPEAN');
     });
 
     describe('#getSpeed', () => {
@@ -29,7 +29,7 @@ fdescribe('Bird', () => {
 
   describe('bird is AFRICAN', () => {
     beforeEach(() => {
-      bird = new Bird('AFRICAN');
+      bird = BirdFactory.build('AFRICAN');
     });
 
     describe('#getSpeed', () => {
@@ -54,7 +54,7 @@ fdescribe('Bird', () => {
   describe('bird is NORWEGIAN BLUE', () => {
     describe('bird is nailed - not sure what this means', () => {
       beforeEach(() => {
-        bird = new Bird('NORWEGIAN_BLUE', 3, true);
+        bird = BirdFactory.build('NORWEGIAN_BLUE', 3, true);
       });
 
       describe('#getSpeed', () => {
@@ -78,7 +78,7 @@ fdescribe('Bird', () => {
 
     describe('bird is not nailed - not sure what this means', () => {
       beforeEach(() => {
-        bird = new Bird('NORWEGIAN_BLUE', 3, false);
+        bird = BirdFactory.build('NORWEGIAN_BLUE', 3, false);
       });
 
       describe('#getSpeed', () => {
