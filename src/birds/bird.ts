@@ -1,14 +1,12 @@
 // https://refactoring.guru/replace-conditional-with-polymorphism
 
-type BIRD_TYPE = 'EUROPEAN' | 'AFRICAN' | 'NORWEGIAN_BLUE';
-
 export class Bird {
   constructor(
-    private _type: BIRD_TYPE,
+    private _type: string,
     private _numberOfCoconuts: number = 3,
     private _isNailed: boolean = false,
     private _voltage: number = 2
-  ) {}
+  ) { }
 
   getBaseSpeed(voltage?: number): number {
     return voltage ? voltage * 2 : 21;

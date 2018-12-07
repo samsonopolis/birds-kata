@@ -100,4 +100,29 @@ fdescribe('Bird', () => {
       });
     });
   });
+
+  describe('bird type INVALID_BIRD', () => {
+    beforeEach(() => {
+      bird = new Bird('INVALID_BIRD');
+    });
+
+    describe('#getSpeed', () => {
+      it('throws an invalid bird type error', () => {
+        expect(() => bird.getSpeed()).toThrowError(Error, 'Invalid Bird Type');
+      });
+    });
+
+    describe('#getWeight', () => {
+      it('throws an invalid bird type error', () => {
+        expect(() => bird.getWeight()).toThrowError(Error, 'Invalid Bird Type');
+      });
+    });
+
+    describe('#getHeight', () => {
+      it('throws an invalid bird type error', () => {
+        expect(() => bird.getHeight()).toThrowError(Error, 'Invalid Bird Type');
+      });
+    });
+  });
+
 });
