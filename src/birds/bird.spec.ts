@@ -100,4 +100,10 @@ fdescribe('Bird', () => {
       });
     });
   });
+
+  describe('bird type INVALID_BIRD', () => {
+    it('should throw an error', () => {
+      expect(() => BirdFactory.build('INVALID_BIRD')).toThrowError(Error, 'Invalid Bird Type');
+    });
+  });
 });
